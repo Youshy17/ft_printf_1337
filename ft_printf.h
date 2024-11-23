@@ -27,5 +27,7 @@ void	ft_put_unsigned_nbr_fd(unsigned int n, int fd);
 int		ft_atoi(const char *str);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
+int     process_flag(const char *format, int *flags, int *width_precision);
+void	process_conversions(char c, va_list args, int *flags, int *width_precision);
 
 #endif
