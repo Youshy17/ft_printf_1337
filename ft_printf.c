@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:40:55 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/23 11:57:13 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/23 13:50:53 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,36 +242,62 @@ void	conversions_traitement(char c, va_list args, int *count, int *flags, int wi
 	{
 		temp = va_arg(args, int);
 		i = count_digits_dec(temp);
-		if (temp >= 0 && flags[5] == 1)
-		{
-			ft_putchar_fd('+', 1);
+		if (flags[4] == 1 || flags[5] == 1)
 			i++;
-		}
-		else if (temp >= 0 && flags[4] == 1)
+		if (flags[0] == 1)
 		{
-			ft_putchar_fd(' ', 1);
-			i++;
-		}
-		if (flags[0] == 1 && width > i)
-		{
+			if (flags[2] == 1 && precision > i)
+			{
+				if (temp >= 0 && flags[5] == 1)
+					ft_putchar_fd('+', 1);
+				else if (temp >= 0 && flags[4] == 1)
+					ft_putchar_fd(' ', 1);
+				while (i++ < precision)
+					ft_putchar_fd('0', 1);
+				i = count_digits_dec(temp) + (precision - count_digits_dec(temp));
+				if (flags[4] == 1 || flags[5] == 1)
+					i++;
+			}
 			ft_putnbr_fd(temp, 1);
 			while (i++ < width)
 				ft_putchar_fd(' ', 1);
 		}
-		else if (flags[1] == 1 && width > i)
+		else if (flags[1] == 1 && flags[2] == 0 && width > i)
 		{
+			if (temp >= 0 && flags[5] == 1)
+				ft_putchar_fd('+', 1);
+			else if (temp >= 0 && flags[4] == 1)
+				ft_putchar_fd(' ', 1);
 			while (i++ < width)
 				ft_putchar_fd('0', 1);
 			ft_putnbr_fd(temp, 1);
 		}
-		else if (width > i)
+		else
 		{
+			if (flags[2] == 1 && precision > i)
+			{
+				i = count_digits_dec(temp) + (precision - count_digits_dec(temp));
+				if (flags[4] == 1 || flags[5] == 1)
+					i++;
+			}
 			while (i++ < width)
 				ft_putchar_fd(' ', 1);
+			i = count_digits_dec(temp);
+			if (flags[4] == 1 || flags[5] == 1)
+				i++;
+
+			if (temp >= 0 && flags[5] == 1)
+				ft_putchar_fd('+', 1);
+			else if (temp >= 0 && flags[4] == 1)
+				ft_putchar_fd(' ', 1);
+			
+			if (flags[2] == 1 && precision > i)
+			{
+				while (i++ < precision)
+					ft_putchar_fd('0', 1);
+			}
 			ft_putnbr_fd(temp, 1);
 		}
-		else
-			ft_putnbr_fd(temp, 1);
 	}
 	else if (c == 'u')
 	{
@@ -302,30 +328,52 @@ void	conversions_traitement(char c, va_list args, int *count, int *flags, int wi
 	{
 		unsignedTemp = va_arg(args, int);
 		i = count_digits_unsigned(unsignedTemp, 16);
+		if (flags[3] == 1)
+			i += 2;
 		if (flags[3] == 1 && c == 'x')
 			ft_putstr_fd("0x", 1);
 		else if (flags[3] == 1 && c == 'X')
 			ft_putstr_fd("0X", 1);
-		if (flags[0] == 1 && width > i)
+		if (flags[0] == 1)
 		{
+			if (flags[2] == 1 && precision > i)
+			{
+				while (i++ < precision)
+					ft_putchar_fd('0', 1);
+				i = count_digits_unsigned(unsignedTemp, 16) + (precision - count_digits_unsigned(unsignedTemp, 16));
+				if (flags[3] == 1)
+					i += 2;
+			}
 			print_hex(unsignedTemp, c);
 			while (i++ < width)
 				ft_putchar_fd(' ', 1);
 		}
-		else if (flags[1] == 1 && width > i)
+		else if (flags[1] == 1 && flags[2] == 0 && width > i)
 		{
 			while (i++ < width)
 				ft_putchar_fd('0', 1);
 			print_hex(unsignedTemp, c);
 		}
-		else if (width > i)
+		else
 		{
+			if (flags[2] == 1 && precision > i)
+			{
+				i = count_digits_unsigned(unsignedTemp, 16) + (precision - count_digits_unsigned(unsignedTemp, 16));
+				if (flags[3] == 1)
+					i += 2;
+			}
 			while (i++ < width)
 				ft_putchar_fd(' ', 1);
+			i = count_digits_unsigned(unsignedTemp, 16);
+			if (flags[3] == 1)
+				i += 2;
+			if (flags[2] == 1 && precision > i)
+			{
+				while (i++ < precision)
+					ft_putchar_fd('0', 1);
+			}
 			print_hex(unsignedTemp, c);
 		}
-		else
-			print_hex(unsignedTemp, c);
 	}
 	else if (c == '%')
 		ft_putchar_fd('%', 1);
@@ -393,6 +441,6 @@ int main ()
 {
 	int a = 5;
 	int *b = &a;
-	ft_printf("This is a test |%7.6s|\n","test");
-	printf("This is a test |%7.6s|\n","test");
+	ft_printf("This is a test |%+9.5d|\n",255);
+	printf("This is a test |%+9.5d|\n",255);
 }
