@@ -4,7 +4,7 @@ if (str[i] == '%')
 	precesions : - 0 . # (space) +
 }
 
-
+// - 0 . # space +
 
 
 - left alignment :
