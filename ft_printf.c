@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:40:55 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/24 10:50:38 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:58:23 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int main ()
 
 int main ()
 {
-	char *t = NULL;
-	ft_printf("This is a test |%2.5s|\n",t);
-	printf("This is a test |%2.5s|\n",t);
+	int o = 5;
+	int *t = &o;
+	ft_printf("This is a test |%015p|\n",t);
+	printf("This is a test |%015p|\n",t);
 }

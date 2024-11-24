@@ -79,3 +79,13 @@ void	pointer_conversion(va_list args, int *flags, int *width_precision)
 			ft_putstr_fd("(nil)", 1);
 	}
 }
+
+/*
+int main ()
+{
+	int o = 5;
+	int *t = &o;
+	ft_printf("This is a test |%015p|\n",t);
+	printf("This is a test |%015p|\n",t);
+}
+*/

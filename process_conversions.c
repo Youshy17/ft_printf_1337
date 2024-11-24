@@ -2,12 +2,6 @@
 
 void	process_conversions(char c, va_list args, int *flags, int *width_precision)
 {
-	int				temp;
-	
-	unsigned long	longTemp;
-	
-	char			*str;
-
 	if (c == 'c')
 		character_conversion(args, flags, width_precision);
 	else if (c == 's')
