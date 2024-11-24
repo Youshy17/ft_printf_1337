@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:40:55 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/23 13:50:53 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/24 10:50:38 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,33 @@ int	ft_printf(const char *format, ...)
 /*
 int main ()
 {
-	const char *format = "%#X|\n";
+	const char *format = "2.6c|\n";
 	int flags[6]; // - 0 . # space +
 	ft_memset(flags , 0, sizeof(flags));
-	int width = 0;
-	int precision = 0;
-	int ret = flag_traitement(format, flags, 1, &width, &precision);
-	printf("width is %d, precision is %d and i is %d\n", width, precision, ret);
+	int width_precision[2];
+	width_precision[0] = -1;
+	width_precision[1] = -1;
+	int ret = process_flag(format, flags, width_precision);
+	printf("width is %d, precision is %d and i is %d\n", width_precision[0], width_precision[1], ret);
 	for (int j = 0; j < 6 ; j++)
 	{
 		printf("%d", flags[j]);
 	}
 	printf("\n");
 }
-*/
+
 int main ()
 {
 	int a = 5;
 	int *b = &a;
 	ft_printf("This is a test |%+9.5d|\n",255);
 	printf("This is a test |%+9.5d|\n",255);
+}
+*/
+
+int main ()
+{
+	char *t = NULL;
+	ft_printf("This is a test |%2.5s|\n",t);
+	printf("This is a test |%2.5s|\n",t);
 }

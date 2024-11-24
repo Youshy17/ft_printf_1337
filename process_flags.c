@@ -23,8 +23,8 @@ static int    first_process(const char *format, int *flags, int *width_precision
 	{
 		flags[2] = 1;
 		i++;
-		width_precision[1] = ft_atoi(format);
-		i += skip_numbers(format);
+		width_precision[1] = ft_atoi(format + i);
+		i += skip_numbers(format + 1);
 	}
 	else if (format[i] == '#')
 		flags[3] = 1;
@@ -42,8 +42,8 @@ static int    second_process(const char *format, int *flags, int *width_precisio
 		flags[5] = 1;
 	else if (c>= '0' && c <= '9')
 	{
-		width_precision[0] = ft_atoi(&format[i]);
-		i += skip_numbers(&format[i]);
+		width_precision[0] = ft_atoi(format + i);
+		i += skip_numbers(format + i);
 	}
     return (i);
 }

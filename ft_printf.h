@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:15:17 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/23 09:02:02 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:14:26 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,11 @@ void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 int     process_flag(const char *format, int *flags, int *width_precision);
 void	process_conversions(char c, va_list args, int *flags, int *width_precision);
+void	character_conversion(va_list args, int *flags, int *width_precision);
+void	string_conversion(va_list args, int *flags, int *width_precision);
+void	pointer_conversion(va_list args, int *flags, int *width_precision);
+void	integer_conversion(va_list args, int *flags, int *width_precision);
+void	unsigned_conversion(va_list args, int *flags, int *width_precision);
+void	hexadecimal_conversion(char c, va_list args, int *flags, int *width_precision);
 
 #endif
