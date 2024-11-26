@@ -6,13 +6,14 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:11:50 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/21 11:21:57 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/26 09:49:47 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
+	return (1);
 }

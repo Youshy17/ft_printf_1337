@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 10:40:55 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/26 11:53:06 by yel-hamr         ###   ########.fr       */
+/*   Created: 2024/11/26 11:21:34 by yel-hamr          #+#    #+#             */
+/*   Updated: 2024/11/26 11:22:08 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			ft_memset(flags , 0, sizeof(flags)); // - 0 . # space +
+			ft_memset(flags , 0, sizeof(flags));
 			width_precision[0] = -1;
 			width_precision[1] = -1;
+			if (format[i] == '-' || format[i] == '0' || format[i] == '.' 
+				|| format[i] == '#' || format[i] == ' ' || format[i] == '+' 
+				|| (format[i] >= '0' && format[i] <= '9'))
+				i += process_flag(&format[i], flags, width_precision);
 			if (format[i] == 'c' || format[i] == 's' || format[i] == 'p' 
 				|| format[i] == 'd' || format[i] == 'i' || format[i] == 'u' 
 				|| format[i] == 'x' || format[i] == 'X')
@@ -46,49 +50,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (count);
 }
-
-
-/*
-int main ()
-{
-	const char *format = "2.6c|\n";
-	int flags[6]; // - 0 . # space +
-	ft_memset(flags , 0, sizeof(flags));
-	int width_precision[2];
-	width_precision[0] = -1;
-	width_precision[1] = -1;
-	int ret = process_flag(format, flags, width_precision);
-	printf("width is %d, precision is %d and i is %d\n", width_precision[0], width_precision[1], ret);
-	for (int j = 0; j < 6 ; j++)
-	{
-		printf("%d", flags[j]);
-	}
-	printf("\n");
-}
-
-int main ()
-{
-	int a = 5;
-	int *b = &a;
-	ft_printf("This is a test |%+9.5d|\n",255);
-	printf("This is a test |%+9.5d|\n",255);
-}
-
-
-int main ()
-{
-	int o = 5;
-	int *t = &o;
-	ft_printf("This is a test |%-40.18p|\n",t);
-	printf("This is a test |%-40.18p|\n",t);
-}
-
-
-int main ()
-{
-	int a = 5;
-	int *b = &a;
-	ft_printf("This is a test |%+9.5u|\n",-515151515);
-	printf("This is a test |%+9.5u|\n",-515151515);
-}
-*/

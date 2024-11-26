@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pointer_conversion.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 12:07:50 by yel-hamr          #+#    #+#             */
+/*   Updated: 2024/11/26 12:07:51 by yel-hamr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	count_digits_address(unsigned long nbr)
 {
-	int	count;
+	int	count = 0;
 
 	if (nbr == 0)
 		return (1);
-	count = 0;
 	while (nbr)
 	{
 		count++;
@@ -15,77 +26,82 @@ int	count_digits_address(unsigned long nbr)
 	return (count);
 }
 
-void print_address(unsigned long num) {
-    if (num >= 16) {
-        print_address(num / 16);
-    }
-    ft_putchar_fd("0123456789abcdef"[num % 16], 1);
+int	print_address(unsigned long num)
+{
+	if (num >= 16)
+		print_address(num / 16);
+	ft_putchar_fd("0123456789abcdef"[num % 16], 1);
+	return (count_digits_address(num));
+}
+
+void	handle_padding(int total_len, int width, char pad_char)
+{
+	while (total_len < width)
+	{
+		ft_putchar_fd(pad_char, 1);
+		total_len++;
+	}
 }
 
 void	pointer_conversion(va_list args, int *flags, int *width_precision)
 {
 	void			*ptr;
-	int				i;
-	unsigned long	longTemp;
-	
-	ptr = va_arg(args, void *);
-	if (ptr)
-	{
-		longTemp = (unsigned long)ptr;
-		i = count_digits_address(longTemp) + 2;
-		if (flags[0] == 1 && width_precision[0] > i)
-		{
-			ft_putstr_fd("0x", 1);
-			print_address(longTemp);
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-		}
-		else if (flags[1] == 1 && width_precision[0] > i)
-		{
-			ft_putstr_fd("0x", 1);
-			while (i++ < width_precision[0])
-				ft_putchar_fd('0', 1);
-			print_address(longTemp);
-		}
-		else if (width_precision[0] > i)
-		{
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-			ft_putstr_fd("0x", 1);
-			print_address(longTemp);
-		}
-		else
-		{
-			ft_putstr_fd("0x", 1);
-			print_address(longTemp);
-		}
-	}
-	else
-	{
-		i = 5;
-		if (flags[0] == 1 && width_precision[0] > i)
-		{
-			ft_putstr_fd("(nil)", 1);
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-		}
-		else if (width_precision[0] > i)
-		{
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-			ft_putstr_fd("(nil)", 1);
-		}
-		else
-			ft_putstr_fd("(nil)", 1);
-	}
-}
+	unsigned long	addr;
+	int				num_len;
+	int				sign_len;
+	int				prefix_len;
+	int				total_len;
 
-/*
-int main ()
-{
-	int o = 5;
-	int *t = &o;
-	ft_printf("This is a test |%015p|\n",t);
-	printf("This is a test |%015p|\n",t);
+	ptr = va_arg(args, void *);
+	addr = (unsigned long)ptr;
+	if (!ptr)
+		num_len = 5;
+	else
+		num_len = count_digits_address(addr);
+	if (flags[5] == 1)
+		sign_len = 1;
+	else
+		sign_len = 0;
+	prefix_len = 2;
+	total_len = num_len + sign_len + prefix_len;
+
+	if (!ptr)
+	{
+		if (flags[0] == 1)
+		{
+			ft_putstr_fd("(nil)", 1);
+			handle_padding(5, width_precision[0], ' ');
+		}
+		else
+		{
+			handle_padding(5, width_precision[0], ' ');
+			ft_putstr_fd("(nil)", 1);
+		}
+		return;
+	}
+
+	if (flags[2] == 1)
+	{
+		if (width_precision[1] > num_len)
+			total_len = sign_len + prefix_len + width_precision[1];
+		else
+			total_len = sign_len + prefix_len + num_len;
+	}
+
+	if (flags[0] == 0)
+	{
+		if (flags[1] == 1 && flags[2] == 0)
+			handle_padding(total_len, width_precision[0], '0');
+		else
+			handle_padding(total_len, width_precision[0], ' ');
+	}
+
+	if (flags[5] == 1)
+		ft_putchar_fd('+', 1);
+	ft_putstr_fd("0x", 1);
+	handle_padding(num_len, width_precision[1], '0');
+	print_address(addr);
+
+	if (flags[0] == 1)
+		handle_padding(total_len, width_precision[0], ' ');
 }
-*/

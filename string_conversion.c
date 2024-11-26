@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   string_conversion.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 12:08:04 by yel-hamr          #+#    #+#             */
+/*   Updated: 2024/11/26 12:08:05 by yel-hamr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char	*set_string(va_list args, int *flags, int *width_precision)
@@ -14,55 +26,31 @@ char	*set_string(va_list args, int *flags, int *width_precision)
 
 void	string_conversion(va_list args, int *flags, int *width_precision)
 {
-	int		i;
 	char	*str;
 	int		strlen;
+	int		i;
 
 	str = set_string(args, flags, width_precision);
-
-	if (width_precision[1] != -1 && width_precision[1] < ft_strlen(str))
+	strlen = ft_strlen(str);
+	if (width_precision[1] != -1 && width_precision[1] < strlen)
 		strlen = width_precision[1];
-	else
-		strlen = ft_strlen(str);
 
 	if (flags[0] == 1)
 	{
-		if (flags[2] == 0)
-		{
-			ft_putstr_fd(str, 1);
-			i = strlen;
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-		}
-		else if (flags[2] == 1)
-		{
-			i = 0;
-			while (str && i++ < strlen)
-				ft_putchar_fd(str[i - 1], 1);
-			i = strlen;
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-		}
+		i = 0;
+		while (i < strlen)
+			ft_putchar_fd(str[i++], 1);
+		while (i < width_precision[0])
+			ft_putchar_fd(' ', 1), i++;
+		return;
 	}
-	else
-	{
-		if (flags[2] == 0)
-		{
-			i = strlen;
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-			ft_putstr_fd(str, 1);
-		}
-		else if (flags[2] == 1)
-		{
-			i = strlen;
-			while (i++ < width_precision[0])
-				ft_putchar_fd(' ', 1);
-			i = 0;
-			while (str && i++ < width_precision[1])
-				ft_putchar_fd(str[i - 1], 1);
-		}
-	}
+
+	i = strlen;
+	while (i < width_precision[0])
+		ft_putchar_fd(' ', 1), i++;
+	i = 0;
+	while (i < strlen)
+		ft_putchar_fd(str[i++], 1);
 }
 
 

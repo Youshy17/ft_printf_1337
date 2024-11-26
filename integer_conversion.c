@@ -1,15 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   integer_conversion.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 12:07:42 by yel-hamr          #+#    #+#             */
+/*   Updated: 2024/11/26 12:07:43 by yel-hamr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	count_digits_dec(int nbr)
 {
 	int	count;
 
+	count = 0;
 	if (nbr == 0)
 		return (1);
 	if (nbr < 0)
 		count = 1;
-	else
-		count = 0;
 	while (nbr)
 	{
 		count++;
@@ -20,65 +31,64 @@ int	count_digits_dec(int nbr)
 
 void	integer_conversion(va_list args, int *flags, int *width_precision)
 {
-	int				temp;
-	int				i;
+	int	temp;
+	int	digits;
+	int	sign_len;
+	int	padding;
 
 	temp = va_arg(args, int);
-	i = count_digits_dec(temp);
-	if (flags[4] == 1 || flags[5] == 1)
-		i++;
+	digits = count_digits_dec(temp);
+	sign_len = 0;
+	if (temp >= 0 && (flags[4] == 1 || flags[5] == 1))
+		sign_len = 1;
+	if (flags[2] == 1 && width_precision[1] > digits)
+		padding = width_precision[1] - digits;
+	else
+		padding = 0;
+
 	if (flags[0] == 1)
 	{
-		if (flags[2] == 1 && width_precision[1] > i)
-		{
-			if (temp >= 0 && flags[5] == 1)
-				ft_putchar_fd('+', 1);
-			else if (temp >= 0 && flags[4] == 1)
-				ft_putchar_fd(' ', 1);
-			while (i++ < width_precision[1])
-				ft_putchar_fd('0', 1);
-			i = count_digits_dec(temp) + (width_precision[1] - count_digits_dec(temp));
-			if (flags[4] == 1 || flags[5] == 1)
-				i++;
-		}
-		ft_putnbr_fd(temp, 1);
-		while (i++ < width_precision[0])
-			ft_putchar_fd(' ', 1);
-	}
-	else if (flags[1] == 1 && flags[2] == 0 && width_precision[0] > i)
-	{
 		if (temp >= 0 && flags[5] == 1)
 			ft_putchar_fd('+', 1);
 		else if (temp >= 0 && flags[4] == 1)
 			ft_putchar_fd(' ', 1);
-		while (i++ < width_precision[0])
-			ft_putchar_fd('0', 1);
 		ft_putnbr_fd(temp, 1);
-	}
-	else
-	{
-		if (flags[2] == 1 && width_precision[1] > i)
+		while (digits + sign_len + padding < width_precision[0])
 		{
-			i = count_digits_dec(temp) + (width_precision[1] - count_digits_dec(temp));
-			if (flags[4] == 1 || flags[5] == 1)
-				i++;
-		}
-		while (i++ < width_precision[0])
 			ft_putchar_fd(' ', 1);
-		i = count_digits_dec(temp);
-		if (flags[4] == 1 || flags[5] == 1)
-			i++;
+			digits++;
+		}
+		return;
+	}
 
+	if (flags[1] == 1 && flags[2] == 0)
+	{
 		if (temp >= 0 && flags[5] == 1)
 			ft_putchar_fd('+', 1);
 		else if (temp >= 0 && flags[4] == 1)
 			ft_putchar_fd(' ', 1);
-		
-		if (flags[2] == 1 && width_precision[1] > i)
+		while (digits + sign_len < width_precision[0])
 		{
-			while (i++ < width_precision[1])
-				ft_putchar_fd('0', 1);
+			ft_putchar_fd('0', 1);
+			digits++;
 		}
 		ft_putnbr_fd(temp, 1);
+		return;
 	}
+
+	while (digits + sign_len + padding < width_precision[0])
+	{
+		ft_putchar_fd(' ', 1);
+		digits++;
+	}
+	if (temp >= 0 && flags[5] == 1)
+		ft_putchar_fd('+', 1);
+	else if (temp >= 0 && flags[4] == 1)
+		ft_putchar_fd(' ', 1);
+	while (padding > 0)
+	{
+		ft_putchar_fd('0', 1);
+		padding--;
+	}
+	ft_putnbr_fd(temp, 1);
 }
