@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:35 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/27 09:52:53 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:06:59 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int	pad_width(int n, int target_width, char pad_char)
 
 	count = 0;
 	while (n++ < target_width)
-	{
 		count += ft_putchar_fd(pad_char, 1);
-		count++;
-	}
 	return (count);
 }
 
@@ -57,42 +54,69 @@ int	hexadecimal_conversion(char c, va_list args, int *flags, int *width_precisio
 {
 	unsigned int	num;
 	int				num_len;
-	int				padding_len;
+	int				precision_padding;
+	int				width_padding;
 	int				count;
+	int				prefix_len;
 
 	num = va_arg(args, unsigned int);
-	num_len = count_digits_hex(num);
-	padding_len = 0;
 	count = 0;
 
-	if (flags[3] == 1)
-	{
-		if (c == 'x')
-			count += ft_putstr_fd("0x", 1);
-		else
-			count += ft_putstr_fd("0X", 1);
-		num_len += 2;
-	}
+	if (num == 0 && flags[2] && width_precision[1] == 0)
+		num_len = 0;
+	else
+		num_len = count_digits_hex(num);
+
+	if (flags[3] == 1 && num != 0)
+		prefix_len = 2;
+	else
+		prefix_len = 0;
 
 	if (width_precision[1] > num_len)
-		padding_len = width_precision[1] - num_len;
+		precision_padding = width_precision[1] - num_len;
+	else
+		precision_padding = 0;
+
+	width_padding = width_precision[0] - (num_len + precision_padding + prefix_len);
+	if (width_padding < 0)
+		width_padding = 0;
 
 	if (flags[0] == 1)
 	{
-		count += pad_width(0, padding_len, '0');
-		count += print_hex(num, c);
-		count += pad_width(num_len + padding_len, width_precision[0], ' ');
+		if (prefix_len > 0)
+		{
+			if (c == 'x')
+				count += ft_putstr_fd("0x", 1);
+			else
+				count += ft_putstr_fd("0X", 1);
+		}
+
+		count += pad_width(0, precision_padding, '0');
+
+		if (num_len > 0)
+			count += print_hex(num, c);
+		count += pad_width(0, width_padding, ' ');
 	}
 	else
 	{
-		if (flags[1] == 1)
-			count += pad_width(num_len, width_precision[0], '0');
+		if (flags[1] == 1 && flags[2] == 0)
+			count += pad_width(0, width_padding, '0');
 		else
-			count += pad_width(num_len + padding_len, width_precision[0], ' ');
+			count += pad_width(0, width_padding, ' ');
 
-		count += pad_width(0, padding_len, '0');
-		count += print_hex(num, c);
+		if (prefix_len > 0)
+		{
+			if (c == 'x')
+				count += ft_putstr_fd("0x", 1);
+			else
+				count += ft_putstr_fd("0X", 1);
+		}
+		count += pad_width(0, precision_padding, '0');
+
+		if (num_len > 0)
+			count += print_hex(num, c);
 	}
+
 	return (count);
 }
 

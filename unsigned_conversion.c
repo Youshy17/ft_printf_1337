@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:08:09 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/26 12:08:10 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:11:40 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,47 @@ int	unsigned_conversion(va_list args, int *flags, int *width_precision)
 {
 	unsigned int	num;
 	int				num_len;
-	int				padding_len;
+	int				precision_padding;
+	int				width_padding;
 	int				count;
 
 	num = va_arg(args, unsigned int);
 	num_len = count_digits_unsigned(num);
 	count = 0;
 
+	if (flags[2] == 1 && width_precision[1] == 0 && num == 0)
+		num_len = 0;
+
 	if (width_precision[1] > num_len)
-		padding_len = width_precision[1] - num_len;
+		precision_padding = width_precision[1] - num_len;
 	else
-		padding_len = 0;
+		precision_padding = 0;
+
+	width_padding = width_precision[0] - (num_len + precision_padding);
+	if (width_padding < 0)
+		width_padding = 0;
 
 	if (flags[0] == 1)
 	{
-		count += pad_width_unsigned(padding_len, '0');
-		count += ft_put_unsigned_nbr_fd(num, 1);
-		count += pad_width_unsigned(width_precision[0] - num_len - padding_len, ' ');
+		count += pad_width_unsigned(precision_padding, '0');
+
+		if (num_len > 0)
+			count += ft_put_unsigned_nbr_fd(num, 1);
+
+		count += pad_width_unsigned(width_padding, ' ');
 	}
 	else
 	{
-		if (flags[1] == 1)
-			count += pad_width_unsigned(width_precision[0] - num_len - padding_len, '0');
+		if (flags[1] == 1 && flags[2] == 0)
+			count += pad_width_unsigned(width_padding, '0');
 		else
-			count += pad_width_unsigned(width_precision[0] - num_len - padding_len, ' ');
+			count += pad_width_unsigned(width_padding, ' ');
 
-		count += pad_width_unsigned(padding_len, '0');
-		count += ft_put_unsigned_nbr_fd(num, 1);
+		count += pad_width_unsigned(precision_padding, '0');
+
+		if (num_len > 0)
+			count += ft_put_unsigned_nbr_fd(num, 1);
 	}
+
 	return (count);
 }
- 
