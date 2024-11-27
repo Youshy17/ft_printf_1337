@@ -21,19 +21,19 @@
 
 int		ft_printf(const char *format, ...);
 int		ft_putchar_fd(char c, int fd);
-void	ft_putnbr_fd(int n, int fd);
+int 	ft_putnbr_fd(int n, int fd);
 int		ft_putstr_fd(char *s, int fd);
-void	ft_put_unsigned_nbr_fd(unsigned int n, int fd);
+int 	ft_put_unsigned_nbr_fd(unsigned int n, int fd);
 int		ft_atoi(const char *str);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 int     process_flag(const char *format, int *flags, int *width_precision);
-void	process_conversions(char c, va_list args, int *flags, int *width_precision);
-void	character_conversion(va_list args, int *flags, int *width_precision);
-void	string_conversion(va_list args, int *flags, int *width_precision);
-void	pointer_conversion(va_list args, int *flags, int *width_precision);
-void	integer_conversion(va_list args, int *flags, int *width_precision);
-void	unsigned_conversion(va_list args, int *flags, int *width_precision);
-void	hexadecimal_conversion(char c, va_list args, int *flags, int *width_precision);
+int 	process_conversions(char c, va_list args, int *flags, int *width_precision);
+int 	character_conversion(va_list args, int *flags, int *width_precision);
+int 	string_conversion(va_list args, int *flags, int *width_precision);
+int 	pointer_conversion(va_list args, int *flags, int *width_precision);
+int 	integer_conversion(va_list args, int *flags, int *width_precision);
+int 	unsigned_conversion(va_list args, int *flags, int *width_precision);
+int 	hexadecimal_conversion(char c, va_list args, int *flags, int *width_precision);
 
 #endif

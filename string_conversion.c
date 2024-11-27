@@ -24,14 +24,16 @@ char	*set_string(va_list args, int *flags, int *width_precision)
 	return (str);
 }
 
-void	string_conversion(va_list args, int *flags, int *width_precision)
+int	string_conversion(va_list args, int *flags, int *width_precision)
 {
 	char	*str;
 	int		strlen;
 	int		i;
+	int		count;
 
 	str = set_string(args, flags, width_precision);
 	strlen = ft_strlen(str);
+	count = 0;
 	if (width_precision[1] != -1 && width_precision[1] < strlen)
 		strlen = width_precision[1];
 
@@ -39,18 +41,19 @@ void	string_conversion(va_list args, int *flags, int *width_precision)
 	{
 		i = 0;
 		while (i < strlen)
-			ft_putchar_fd(str[i++], 1);
+			count += ft_putchar_fd(str[i++], 1);
 		while (i < width_precision[0])
-			ft_putchar_fd(' ', 1), i++;
-		return;
+			count += ft_putchar_fd(' ', 1), i++;
+		return (count);
 	}
 
 	i = strlen;
 	while (i < width_precision[0])
-		ft_putchar_fd(' ', 1), i++;
+		count += ft_putchar_fd(' ', 1), i++;
 	i = 0;
 	while (i < strlen)
-		ft_putchar_fd(str[i++], 1);
+		count += ft_putchar_fd(str[i++], 1);
+	return (count);
 }
 
 

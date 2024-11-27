@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	character_conversion(va_list args, int *flags, int *width_precision)
+int	character_conversion(va_list args, int *flags, int *width_precision)
 {
 	int	i;
 	int	count;
@@ -37,4 +37,5 @@ void	character_conversion(va_list args, int *flags, int *width_precision)
 		}
 		count += ft_putchar_fd(va_arg(args, int), 1);
 	}
+	return (count);
 }

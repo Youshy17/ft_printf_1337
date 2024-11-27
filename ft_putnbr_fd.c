@@ -12,22 +12,25 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	unsigned int	nbr;
+	int				count;
 
+	count = 0;
 	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
+		count += ft_putchar_fd('-', fd);
 		nbr = (unsigned int)(n * (-1));
 	}
 	else
 		nbr = (unsigned int) n;
 	if (nbr >= 10)
 	{
-		ft_putnbr_fd(nbr / 10, fd);
-		ft_putchar_fd((nbr % 10 + '0'), fd);
+		count += ft_putnbr_fd(nbr / 10, fd);
+		count += ft_putchar_fd((nbr % 10 + '0'), fd);
 	}
 	else
-		ft_putchar_fd((nbr + '0'), fd);
+		count += ft_putchar_fd((nbr + '0'), fd);
+	return (count);
 }

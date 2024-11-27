@@ -34,16 +34,20 @@ int	print_address(unsigned long num)
 	return (count_digits_address(num));
 }
 
-void	handle_padding(int total_len, int width, char pad_char)
+int	handle_padding(int total_len, int width, char pad_char)
 {
+	int	count;
+
+	count = 0;
 	while (total_len < width)
 	{
-		ft_putchar_fd(pad_char, 1);
+		count += ft_putchar_fd(pad_char, 1);
 		total_len++;
 	}
+	return (count);
 }
 
-void	pointer_conversion(va_list args, int *flags, int *width_precision)
+int	pointer_conversion(va_list args, int *flags, int *width_precision)
 {
 	void			*ptr;
 	unsigned long	addr;
@@ -51,9 +55,11 @@ void	pointer_conversion(va_list args, int *flags, int *width_precision)
 	int				sign_len;
 	int				prefix_len;
 	int				total_len;
+	int				count;
 
 	ptr = va_arg(args, void *);
 	addr = (unsigned long)ptr;
+	count = 0;
 	if (!ptr)
 		num_len = 5;
 	else
@@ -69,15 +75,15 @@ void	pointer_conversion(va_list args, int *flags, int *width_precision)
 	{
 		if (flags[0] == 1)
 		{
-			ft_putstr_fd("(nil)", 1);
-			handle_padding(5, width_precision[0], ' ');
+			count += ft_putstr_fd("(nil)", 1);
+			count += handle_padding(5, width_precision[0], ' ');
 		}
 		else
 		{
-			handle_padding(5, width_precision[0], ' ');
-			ft_putstr_fd("(nil)", 1);
+			count += handle_padding(5, width_precision[0], ' ');
+			count += ft_putstr_fd("(nil)", 1);
 		}
-		return;
+		return (count);
 	}
 
 	if (flags[2] == 1)
@@ -91,17 +97,18 @@ void	pointer_conversion(va_list args, int *flags, int *width_precision)
 	if (flags[0] == 0)
 	{
 		if (flags[1] == 1 && flags[2] == 0)
-			handle_padding(total_len, width_precision[0], '0');
+			count += handle_padding(total_len, width_precision[0], '0');
 		else
-			handle_padding(total_len, width_precision[0], ' ');
+			count += handle_padding(total_len, width_precision[0], ' ');
 	}
 
 	if (flags[5] == 1)
-		ft_putchar_fd('+', 1);
-	ft_putstr_fd("0x", 1);
-	handle_padding(num_len, width_precision[1], '0');
-	print_address(addr);
+		count += ft_putchar_fd('+', 1);
+	count += ft_putstr_fd("0x", 1);
+	count += handle_padding(num_len, width_precision[1], '0');
+	count += print_address(addr);
 
 	if (flags[0] == 1)
-		handle_padding(total_len, width_precision[0], ' ');
+		count += handle_padding(total_len, width_precision[0], ' ');
+	return (count);
 }

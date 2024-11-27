@@ -12,20 +12,25 @@
 
 #include "ft_printf.h"
 
-void	process_conversions(char c, va_list args, int *flags, int *width_precision)
+int	process_conversions(char c, va_list args, int *flags, int *width_precision)
 {
+	int	count;
+
 	if (c == 'c')
-		character_conversion(args, flags, width_precision);
+		count = character_conversion(args, flags, width_precision);
 	else if (c == 's')
-		string_conversion(args, flags, width_precision);
+		count = string_conversion(args, flags, width_precision);
 	else if (c == 'p')
-		pointer_conversion(args, flags, width_precision);
+		count = pointer_conversion(args, flags, width_precision);
 	else if (c == 'd' || c == 'i')
-		integer_conversion(args, flags, width_precision);
+		count = integer_conversion(args, flags, width_precision);
 	else if (c == 'u')
-		unsigned_conversion(args, flags, width_precision);
+		count = unsigned_conversion(args, flags, width_precision);
 	else if (c == 'x' || c == 'X')
-		hexadecimal_conversion(c, args, flags, width_precision);
+		count = hexadecimal_conversion(c, args, flags, width_precision);
 	else if (c == '%')
-		ft_putchar_fd('%', 1);
+		count = ft_putchar_fd('%', 1);
+	else
+		count = -1;
+	return (count);
 }

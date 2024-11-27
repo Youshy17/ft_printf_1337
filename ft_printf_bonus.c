@@ -39,12 +39,12 @@ int	ft_printf(const char *format, ...)
 			if (format[i] == 'c' || format[i] == 's' || format[i] == 'p' 
 				|| format[i] == 'd' || format[i] == 'i' || format[i] == 'u' 
 				|| format[i] == 'x' || format[i] == 'X')
-				process_conversions(format[i], args, flags, width_precision);
+				count += process_conversions(format[i], args, flags, width_precision);
 			else if (format[i] == '%')
-				ft_putchar_fd('%', 1);
+				count += ft_putchar_fd('%', 1);
 		}
 		else
-			ft_putchar_fd(format[i], 1);
+			count += ft_putchar_fd(format[i], 1);
 		i++;
 	}
 	va_end(args);

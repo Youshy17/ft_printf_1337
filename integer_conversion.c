@@ -29,16 +29,18 @@ int	count_digits_dec(int nbr)
 	return (count);
 }
 
-void	integer_conversion(va_list args, int *flags, int *width_precision)
+int	integer_conversion(va_list args, int *flags, int *width_precision)
 {
 	int	temp;
 	int	digits;
 	int	sign_len;
 	int	padding;
+	int	count;
 
 	temp = va_arg(args, int);
 	digits = count_digits_dec(temp);
 	sign_len = 0;
+	count = 0;
 	if (temp >= 0 && (flags[4] == 1 || flags[5] == 1))
 		sign_len = 1;
 	if (flags[2] == 1 && width_precision[1] > digits)
@@ -49,46 +51,48 @@ void	integer_conversion(va_list args, int *flags, int *width_precision)
 	if (flags[0] == 1)
 	{
 		if (temp >= 0 && flags[5] == 1)
-			ft_putchar_fd('+', 1);
+			count += ft_putchar_fd('+', 1);
 		else if (temp >= 0 && flags[4] == 1)
-			ft_putchar_fd(' ', 1);
-		ft_putnbr_fd(temp, 1);
+			count += ft_putchar_fd(' ', 1);
+		count += ft_putnbr_fd(temp, 1);
 		while (digits + sign_len + padding < width_precision[0])
 		{
-			ft_putchar_fd(' ', 1);
+			count += ft_putchar_fd(' ', 1);
 			digits++;
 		}
-		return;
+		return (count);
 	}
 
 	if (flags[1] == 1 && flags[2] == 0)
 	{
 		if (temp >= 0 && flags[5] == 1)
-			ft_putchar_fd('+', 1);
+			count += ft_putchar_fd('+', 1);
 		else if (temp >= 0 && flags[4] == 1)
-			ft_putchar_fd(' ', 1);
+			count += ft_putchar_fd(' ', 1);
 		while (digits + sign_len < width_precision[0])
 		{
-			ft_putchar_fd('0', 1);
+			count += ft_putchar_fd('0', 1);
 			digits++;
 		}
-		ft_putnbr_fd(temp, 1);
-		return;
+		count += ft_putnbr_fd(temp, 1);
+		return (count);
 	}
 
 	while (digits + sign_len + padding < width_precision[0])
 	{
-		ft_putchar_fd(' ', 1);
+		count += ft_putchar_fd(' ', 1);
 		digits++;
 	}
 	if (temp >= 0 && flags[5] == 1)
-		ft_putchar_fd('+', 1);
+		count += ft_putchar_fd('+', 1);
 	else if (temp >= 0 && flags[4] == 1)
-		ft_putchar_fd(' ', 1);
+		count += ft_putchar_fd(' ', 1);
 	while (padding > 0)
 	{
-		ft_putchar_fd('0', 1);
+		count += ft_putchar_fd('0', 1);
 		padding--;
 	}
-	ft_putnbr_fd(temp, 1);
+	count += ft_putnbr_fd(temp, 1);
+
+	return (count);
 }
