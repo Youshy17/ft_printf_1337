@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:35 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/26 12:07:36 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:52:53 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	pad_width(int n, int target_width, char pad_char)
 	int count;
 
 	count = 0;
-	while (n < target_width)
+	while (n++ < target_width)
 	{
 		count += ft_putchar_fd(pad_char, 1);
 		count++;

@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:42 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/26 12:07:43 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:48:24 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,44 @@ int	integer_conversion(va_list args, int *flags, int *width_precision)
 	count = 0;
 	if (temp >= 0 && (flags[4] == 1 || flags[5] == 1))
 		sign_len = 1;
-	if (flags[2] == 1 && width_precision[1] > digits)
-		padding = width_precision[1] - digits;
+
+	if (temp < 0)
+	{
+		if (width_precision[1] > digits - 1)
+			padding = width_precision[1] - (digits - 1);
+		else
+			padding = 0;
+	}
 	else
-		padding = 0;
+	{
+		if (width_precision[1] > digits)
+			padding = width_precision[1] - digits;
+		else
+			padding = 0;
+	}
 
 	if (flags[0] == 1)
 	{
-		if (temp >= 0 && flags[5] == 1)
+		if (temp >= 0 && flags[5])
 			count += ft_putchar_fd('+', 1);
-		else if (temp >= 0 && flags[4] == 1)
+		else if (temp >= 0 && flags[4])
 			count += ft_putchar_fd(' ', 1);
-		count += ft_putnbr_fd(temp, 1);
+		if (temp < 0)
+			count += ft_putchar_fd('-', 1);
+
+		while (padding > 0)
+		{
+			count += ft_putchar_fd('0', 1);
+			padding--;
+		}
+
+		if (temp < 0 && temp == -2147483648)
+			count += ft_putstr_fd("2147483648", 1);
+		else if (temp < 0)
+			count += ft_putnbr_fd(-temp, 1);
+		else
+			count += ft_putnbr_fd(temp, 1);
+
 		while (digits + sign_len + padding < width_precision[0])
 		{
 			count += ft_putchar_fd(' ', 1);
@@ -69,12 +95,22 @@ int	integer_conversion(va_list args, int *flags, int *width_precision)
 			count += ft_putchar_fd('+', 1);
 		else if (temp >= 0 && flags[4] == 1)
 			count += ft_putchar_fd(' ', 1);
+		if (temp < 0)
+			count += ft_putchar_fd('-', 1);
+
 		while (digits + sign_len < width_precision[0])
 		{
 			count += ft_putchar_fd('0', 1);
 			digits++;
 		}
-		count += ft_putnbr_fd(temp, 1);
+
+		if (temp < 0 && temp == -2147483648)
+			count += ft_putstr_fd("2147483648", 1);
+		else if (temp < 0)
+			count += ft_putnbr_fd(-temp, 1);
+		else
+			count += ft_putnbr_fd(temp, 1);
+
 		return (count);
 	}
 
@@ -83,16 +119,26 @@ int	integer_conversion(va_list args, int *flags, int *width_precision)
 		count += ft_putchar_fd(' ', 1);
 		digits++;
 	}
+
 	if (temp >= 0 && flags[5] == 1)
 		count += ft_putchar_fd('+', 1);
 	else if (temp >= 0 && flags[4] == 1)
 		count += ft_putchar_fd(' ', 1);
+	if (temp < 0)
+		count += ft_putchar_fd('-', 1);
+
 	while (padding > 0)
 	{
 		count += ft_putchar_fd('0', 1);
 		padding--;
 	}
-	count += ft_putnbr_fd(temp, 1);
+
+	if (temp < 0 && temp == -2147483648)
+		count += ft_putstr_fd("2147483648", 1);
+	else if (temp < 0)
+		count += ft_putnbr_fd(-temp, 1);
+	else
+		count += ft_putnbr_fd(temp, 1);
 
 	return (count);
 }
