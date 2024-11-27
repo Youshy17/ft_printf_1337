@@ -133,7 +133,10 @@ int	integer_conversion(va_list args, int *flags, int *width_precision)
 		padding--;
 	}
 
-	if (temp < 0 && temp == -2147483648)
+	
+	if (temp == 0 && width_precision[1] == 0)
+		;
+	else if (temp < 0 && temp == -2147483648)
 		count += ft_putstr_fd("2147483648", 1);
 	else if (temp < 0)
 		count += ft_putnbr_fd(-temp, 1);
