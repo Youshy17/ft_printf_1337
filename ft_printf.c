@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:40:55 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/26 11:53:06 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:48:17 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	ft_printf(const char *format, ...)
 				count += process_conversions(format[i], args, flags, width_precision);
 			else if (format[i] == '%')
 				count += ft_putchar_fd('%', 1);
+			else
+				return (-1);
 		}
 		else
 			count += ft_putchar_fd(format[i], 1);

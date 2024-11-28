@@ -4,8 +4,9 @@ int main ()
 {
 	int a = 5;
 	int *b = &a;
-	int x = ft_printf("|%10.0d|\n",0);
-	int y = printf("|%10.0d|\n",0);
+	//int x = ft_printf("|%Rg5d|\n",5);
+	int x = 5;
+	int y = printf("|%%.Rg5d|\n",5);
 	printf("mine returned %d and original returned %d\n", x, y);
 }
 
@@ -19,5 +20,5 @@ int main ()
 	printf("|%-15.15d|\n",255);
 }
 
-("%.6i", -3)
+int y = printf("|%.-5d|\n",10);
 */
