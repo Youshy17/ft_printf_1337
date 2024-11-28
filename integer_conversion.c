@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:42 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/28 10:05:30 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:31:26 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,20 @@ void	print_number(int nbr, int precision, int *count)
 	int	padding;
 
 	if (nbr == -2147483648)
+	{
+		padding = precision - count_digits_dec(nbr) - 1;
+		print_padding(padding, '0', count);
+		if (nbr == 0 && precision == 0)
+			return ;
 		*count += ft_putstr_fd("2147483648", 1);
+		return ;
+	}
 	if (nbr < 0)
 		nbr = -nbr;
 	padding = precision - count_digits_dec(nbr);
 	print_padding(padding, '0', count);
 	if (nbr == 0 && precision == 0)
-		return;
+		return ;
 	
 	*count += ft_putnbr_fd(nbr, 1);
 }
@@ -83,16 +90,19 @@ int	integer_conversion(va_list args, int *flags, int *width_precision)
 		print_number(nbr, width_precision[1], &count);
 		print_padding(width_precision[0] - len - padding, ' ', &count);
 	}
-	else // Right-align
+	else
 	{
-		if (flags[1] && !flags[2]) // '0' flag
+		if (flags[1] && !flags[2])
 		{
-			handle_sign(nbr, &count); // Handle the sign first
-			print_padding(width_precision[0] - len, '0', &count); // Then pad with zeros
+			handle_sign(nbr, &count);
+			print_padding(width_precision[0] - len, '0', &count);
 		}
-		else // Space padding
+		else
 		{
-			print_padding(width_precision[0] - len - padding, ' ', &count);
+			if (width_precision[1] == 0 && nbr == 0)
+				print_padding(width_precision[0] - len - padding + 1, ' ', &count);
+			else
+				print_padding(width_precision[0] - len - padding, ' ', &count);
 			handle_sign(nbr, &count);
 		}
 		print_number(nbr, width_precision[1], &count);
