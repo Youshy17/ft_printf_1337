@@ -2,11 +2,12 @@
 
 int main ()
 {
-	int a = 5;
-	int *b = &a;
-	//int x = ft_printf("|%Rg5d|\n",5);
-	int x = 5;
-	int y = printf("|%%.Rg5d|\n",5);
+	// int a = 5;
+	// int *b = &a;
+	int x = ft_printf("%");
+	printf("\n");
+	int y = printf("%");
+	printf("\n");
 	printf("mine returned %d and original returned %d\n", x, y);
 }
 
