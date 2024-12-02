@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   hexadecimal_conversion_bis.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 15:30:34 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 16:14:14 by yel-hamr         ###   ########.fr       */
+/*   Created: 2024/12/02 17:54:21 by yel-hamr          #+#    #+#             */
+/*   Updated: 2024/12/02 17:57:42 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr_fd(int n, int fd)
+int	print_hex(unsigned int num, char c)
 {
-	unsigned int	nbr;
-	int				count;
+	int	count;
 
 	count = 0;
-	if (n < 0)
-	{
-		count += ft_putchar_fd('-', fd);
-		nbr = (unsigned int)(n * (-1));
-	}
+	if (num >= 16)
+		count += print_hex(num / 16, c);
+	if (c == 'X')
+		count += ft_putchar_fd("0123456789ABCDEF"[num % 16], 1);
 	else
-		nbr = (unsigned int)n;
-	if (nbr >= 10)
+		count += ft_putchar_fd("0123456789abcdef"[num % 16], 1);
+	return (count);
+}
+
+int	count_digits_hex(unsigned int nbr)
+{
+	int	count;
+
+	count = 0;
+	if (nbr == 0)
+		return (1);
+	while (nbr > 0)
 	{
-		count += ft_putnbr_fd(nbr / 10, fd);
-		count += ft_putchar_fd((nbr % 10 + '0'), fd);
+		count++;
+		nbr /= 16;
 	}
-	else
-		count += ft_putchar_fd((nbr + '0'), fd);
 	return (count);
 }

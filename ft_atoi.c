@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:26:52 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/22 11:54:35 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:13:42 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_atoi(const char *str)
 	{
 		number *= 10;
 		number += (*str - 48);
-		str ++;
+		str++;
 	}
 	return ((int)(number * minus));
 }
