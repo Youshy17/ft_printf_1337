@@ -29,10 +29,14 @@ int	count_digits_dec(int nbr)
 	return (count);
 }
 
-void	handle_sign(int nbr, int *count)
+void	handle_sign(int nbr, int *count, int *flags)
 {
 	if (nbr < 0)
 		*count += ft_putchar_fd('-', 1);
+	else if (flags[5])
+		*count += ft_putchar_fd('+', 1);
+	else if (flags[4])
+		*count += ft_putchar_fd(' ', 1);
 }
 
 void	put_padding(int len, char c, int *count)

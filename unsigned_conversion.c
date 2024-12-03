@@ -14,8 +14,9 @@
 
 int	count_digits_unsigned(unsigned int nbr)
 {
-	int	count = 0;
+	int	count;
 
+	count = 0;
 	if (nbr == 0)
 		return (1);
 	while (nbr)
@@ -38,51 +39,46 @@ int	pad_width_unsigned(int width, char pad_char)
 	return (count);
 }
 
+int	unsigned_conversion_bis(unsigned int num, int *flags, int *width_precision)
+{
+	int				num_len;
+
+	num_len = count_digits_unsigned(num);
+	if (flags[2] == 1 && width_precision[1] == 0 && num == 0)
+		num_len = 0;
+	if (width_precision[1] > num_len)
+		width_precision[1] = width_precision[1] - num_len;
+	else
+		width_precision[1] = 0;
+	width_precision[0] = width_precision[0] - (num_len + width_precision[1]);
+	return (num_len);
+}
+
 int	unsigned_conversion(va_list args, int *flags, int *width_precision)
 {
 	unsigned int	num;
 	int				num_len;
-	int				precision_padding;
-	int				width_padding;
 	int				count;
 
 	num = va_arg(args, unsigned int);
-	num_len = count_digits_unsigned(num);
+	num_len = unsigned_conversion_bis(num, flags, width_precision);
 	count = 0;
-
-	if (flags[2] == 1 && width_precision[1] == 0 && num == 0)
-		num_len = 0;
-
-	if (width_precision[1] > num_len)
-		precision_padding = width_precision[1] - num_len;
-	else
-		precision_padding = 0;
-
-	width_padding = width_precision[0] - (num_len + precision_padding);
-	if (width_padding < 0)
-		width_padding = 0;
-
 	if (flags[0] == 1)
 	{
-		count += pad_width_unsigned(precision_padding, '0');
-
+		count += pad_width_unsigned(width_precision[1], '0');
 		if (num_len > 0)
 			count += ft_put_unsigned_nbr_fd(num, 1);
-
-		count += pad_width_unsigned(width_padding, ' ');
+		count += pad_width_unsigned(width_precision[0], ' ');
 	}
 	else
 	{
 		if (flags[1] == 1 && flags[2] == 0)
-			count += pad_width_unsigned(width_padding, '0');
+			count += pad_width_unsigned(width_precision[0], '0');
 		else
-			count += pad_width_unsigned(width_padding, ' ');
-
-		count += pad_width_unsigned(precision_padding, '0');
-
+			count += pad_width_unsigned(width_precision[0], ' ');
+		count += pad_width_unsigned(width_precision[1], '0');
 		if (num_len > 0)
 			count += ft_put_unsigned_nbr_fd(num, 1);
 	}
-
 	return (count);
 }

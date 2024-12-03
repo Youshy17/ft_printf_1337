@@ -19,9 +19,9 @@ int	main(void)
 
 	// int a = 5;
 	// int *b = &a;
-	x = ft_printf("%");
+	x = ft_printf(" %#d ", 3);
 	printf("\n");
-	y = printf("%");
+	y = printf(" %#d ", 3);
 	printf("\n");
 	printf("mine returned %d and original returned %d\n", x, y);
 }

@@ -38,7 +38,7 @@ int		print_address(unsigned long num);
 int		handle_padding(int total_len, int width, char pad_char);
 int		integer_conversion(va_list args, int *flags, int *width_precision);
 int		count_digits_dec(int nbr);
-void	handle_sign(int nbr, int *count);
+void	handle_sign(int nbr, int *count, int *flags);
 void	put_padding(int len, char c, int *count);
 void	print_number(int nbr, int precision, int *count);
 int		unsigned_conversion(va_list args, int *flags, int *width_precision);
