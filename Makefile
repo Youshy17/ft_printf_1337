@@ -2,7 +2,7 @@ NAME = libftprintf.a
 
 CC = cc
 
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	ft_atoi.c\
 		ft_memset.c\
@@ -13,12 +13,16 @@ SRCS =	ft_atoi.c\
 		ft_strlen.c\
 		character_conversion.c\
 		hexadecimal_conversion.c\
+		hexadecimal_conversion_bis.c\
 		pointer_conversion.c\
+		pointer_conversion_bis.c\
 		string_conversion.c\
 		unsigned_conversion.c\
 		integer_conversion.c\
+		integer_conversion_bis.c\
 		process_conversions.c\
 		process_flags.c\
+		ft_put_unsigned_nbr_fd.c\
 		ft_printf.c
 
 SRCSB = ft_atoi.c\
@@ -30,12 +34,16 @@ SRCSB = ft_atoi.c\
 		ft_strlen.c\
 		character_conversion.c\
 		hexadecimal_conversion.c\
+		hexadecimal_conversion_bis.c\
 		pointer_conversion.c\
+		pointer_conversion_bis.c\
 		string_conversion.c\
 		unsigned_conversion.c\
 		integer_conversion.c\
+		integer_conversion_bis.c\
 		process_conversions.c\
 		process_flags.c\
+		ft_put_unsigned_nbr_fd.c\
 		ft_printf_bonus.c
 
 OBJS = $(SRCS:.c=.o)

@@ -51,7 +51,7 @@ void	print_number(int nbr, int precision, int *count)
 	if (nbr == -2147483648)
 	{
 		padding = precision - count_digits_dec(nbr) - 1;
-		print_padding(padding, '0', count);
+		put_padding(padding, '0', count);
 		if (nbr == 0 && precision == 0)
 			return ;
 		*count += ft_putstr_fd("2147483648", 1);
@@ -60,7 +60,7 @@ void	print_number(int nbr, int precision, int *count)
 	if (nbr < 0)
 		nbr = -nbr;
 	padding = precision - count_digits_dec(nbr);
-	print_padding(padding, '0', count);
+	put_padding(padding, '0', count);
 	if (nbr == 0 && precision == 0)
 		return ;
 	*count += ft_putnbr_fd(nbr, 1);
