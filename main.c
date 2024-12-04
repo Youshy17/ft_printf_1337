@@ -19,11 +19,7 @@ int	main(void)
 
 	// int a = 5;
 	// int *b = &a;
-	x = ft_printf(" %#d ", 3);
-	printf("\n");
-	y = printf(" %q ", 3);
-	printf("\n");
-	printf("mine returned %d and original returned %d\n", x, y);
+	x = ft_printf("tetetete %#d ttetete ", 3);
 }
 
 /*
