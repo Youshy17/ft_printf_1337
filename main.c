@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:38:35 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 18:38:40 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:17:32 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	// int *b = &a;
 	x = ft_printf(" %#d ", 3);
 	printf("\n");
-	y = printf(" %#d ", 3);
+	y = printf(" %q ", 3);
 	printf("\n");
 	printf("mine returned %d and original returned %d\n", x, y);
 }
