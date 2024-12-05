@@ -21,10 +21,10 @@ int	character_conversion(va_list args, int *flags, int *width_precision)
 	count = 0;
 	if (flags[0] == 1)
 	{
-		count += ft_putchar_fd(va_arg(args, int), 1);
+		count = check_count(count, ft_putchar_fd(va_arg(args, int), 1));
 		while (i < width_precision[0] - 1)
 		{
-			count += ft_putchar_fd(' ', 1);
+			count = check_count(count, ft_putchar_fd(' ', 1));
 			i++;
 		}
 	}
@@ -32,10 +32,10 @@ int	character_conversion(va_list args, int *flags, int *width_precision)
 	{
 		while (i < width_precision[0] - 1)
 		{
-			count += ft_putchar_fd(' ', 1);
+			count = check_count(count, ft_putchar_fd(' ', 1));
 			i++;
 		}
-		count += ft_putchar_fd(va_arg(args, int), 1);
+		count = check_count(count, ft_putchar_fd(va_arg(args, int), 1));
 	}
 	return (count);
 }

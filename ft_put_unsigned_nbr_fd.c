@@ -19,10 +19,10 @@ int	ft_put_unsigned_nbr_fd(unsigned int n, int fd)
 	count = 0;
 	if (n >= 10)
 	{
-		count += ft_put_unsigned_nbr_fd(n / 10, fd);
-		count += ft_putchar_fd((n % 10 + '0'), fd);
+		count = check_count(count, ft_put_unsigned_nbr_fd(n / 10, fd));
+		count = check_count(count, ft_putchar_fd((n % 10 + '0'), fd));
 	}
 	else
-		count += ft_putchar_fd((n + '0'), fd);
+		count = check_count(count, ft_putchar_fd((n + '0'), fd));
 	return (count);
 }

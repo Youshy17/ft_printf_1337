@@ -23,6 +23,7 @@ SRCS =	ft_atoi.c\
 		process_conversions.c\
 		process_flags.c\
 		ft_put_unsigned_nbr_fd.c\
+		check_count.c\
 		ft_printf.c
 
 SRCSB = ft_atoi.c\
@@ -44,6 +45,7 @@ SRCSB = ft_atoi.c\
 		process_conversions.c\
 		process_flags.c\
 		ft_put_unsigned_nbr_fd.c\
+		check_count.c\
 		ft_printf_bonus.c
 
 OBJS = $(SRCS:.c=.o)

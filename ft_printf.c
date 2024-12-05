@@ -15,31 +15,31 @@
 int	check_format(const char *format, va_list args, int *flags,
 		int *width_precision)
 {
-	int	temp;
+	int	count;
 
 	ft_memset(flags, 0, sizeof(flags));
 	width_precision[0] = -1;
 	width_precision[1] = -1;
+	count = 0;
 	if (*format == 'c' || *format == 's' || *format == 'p' || *format == 'd'
 		|| *format == 'i' || *format == 'u' || *format == 'x' || *format == 'X')
-		temp = process_conversions(*format, args, flags, width_precision);
+		count = check_count(count, process_conversions(*format, args, flags, width_precision));
 	else if (*format == '%')
-		temp = ft_putchar_fd('%', 1);
+		count = check_count(count, ft_putchar_fd('%', 1));
 	else if (*format != '\0')
 	{
-		temp = ft_putchar_fd('%', 1);
-		temp += ft_putchar_fd(*format, 1);
+		count = check_count(count, ft_putchar_fd('%', 1));
+		count = check_count(count, ft_putchar_fd(*format, 1));
 	}
 	else
 		return (-1);
-	return (temp);
+	return (count);
 }
 
 int	process_format(const char *format, va_list args, int *flags,
 		int *width_precision)
 {
 	int	i;
-	int	temp;
 	int	count;
 
 	i = 0;
@@ -49,15 +49,11 @@ int	process_format(const char *format, va_list args, int *flags,
 		if (format[i] == '%')
 		{
 			i++;
-			temp = check_format(&format[i], args, flags, width_precision);
+			count = check_count(count, check_format(&format[i], args, flags, width_precision));
 		}
 		else
-			temp = ft_putchar_fd(format[i], 1);
+			count = check_count(count, ft_putchar_fd(format[i], 1));
 		i++;
-		if (temp != -1)
-			count += temp;
-		else
-			return (temp);
 	}
 	return (count);
 }

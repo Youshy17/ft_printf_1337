@@ -19,7 +19,7 @@ int	main(void)
 
 	// int a = 5;
 	// int *b = &a;
-	x = ft_printf("%i", 3);
+	x = printf("%00000000T");
 	printf("\n%i", x);
 	//printf("x is %d and y is %d", x, y);
 }

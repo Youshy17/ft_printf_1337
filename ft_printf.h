@@ -46,4 +46,5 @@ int		hexadecimal_conversion(char c, va_list args, int *flags,
 			int *width_precision);
 int		print_hex(unsigned int num, char c);
 int		count_digits_hex(unsigned int nbr);
+int		check_count(int current_count, int new_count);
 #endif

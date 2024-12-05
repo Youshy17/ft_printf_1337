@@ -36,10 +36,17 @@ int	read_conversions(const char *format, va_list args, int *flags,
 	if (*format == 'c' || *format == 's' || *format == 'p'
 		|| *format == 'd' || *format == 'i' || *format == 'u'
 		|| *format == 'x' || *format == 'X')
-		count += process_conversions(*format, args, flags,
-				width_precision);
+		count = check_count(count, process_conversions(*format, args, flags,
+				width_precision));
 	else if (*format == '%')
-		count += ft_putchar_fd('%', 1);
+		count = check_count(count, ft_putchar_fd('%', 1));
+	else if (*format != '\0')
+	{
+		count = check_count(count, ft_putchar_fd('%', 1));
+		count = check_count(count, ft_putchar_fd(*format, 1));
+	}
+	else
+		return (-1);
 	return (count);
 }
 
@@ -57,10 +64,10 @@ int	process_format(const char *format, va_list args, int *flags,
 		{
 			i++;
 			i += read_flags(&format[i], flags, width_precision);
-			count += read_conversions(&format[i], args, flags, width_precision);
+			count = check_count(count, read_conversions(&format[i], args, flags, width_precision));
 		}
 		else
-			count += ft_putchar_fd(format[i], 1);
+			count = check_count(count, ft_putchar_fd(format[i], 1));
 		i++;
 	}
 	return (count);
