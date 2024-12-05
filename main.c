@@ -19,7 +19,9 @@ int	main(void)
 
 	// int a = 5;
 	// int *b = &a;
-	x = ft_printf("tetetete %#d ttetete ", 3);
+	x = ft_printf("%i", 3);
+	printf("\n%i", x);
+	//printf("x is %d and y is %d", x, y);
 }
 
 /*

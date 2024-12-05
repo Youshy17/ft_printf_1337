@@ -72,64 +72,10 @@ int	ft_printf(const char *format, ...)
 	if (format == NULL)
 		return (-1);
 	va_start(args, format);
+	ft_memset(flags, 0, sizeof(flags));
+	width_precision[0] = -1;
+	width_precision[1] = -1;
 	count = process_format(format, args, flags, width_precision);
 	va_end(args);
 	return (count);
 }
-
-/*
-int main ()
-{
-	const char	*format = "2.6c|\n";
-	int			width_precision[2];
-	int			ret;
-
-	int flags[6]; // - 0 . # space +
-	ft_memset(flags , 0, sizeof(flags));
-	width_precision[0] = -1;
-	width_precision[1] = -1;
-	ret = process_flag(format, flags, width_precision);
-	printf("width is %d, precision is %d and i is %d\n", width_precision[0],
-		width_precision[1], ret);
-	for (int j = 0; j < 6 ; j++)
-	{
-		printf("%d", flags[j]);
-	}
-	printf("\n");
-}
-
-int main ()
-{
-	int	a;
-	int	*b;
-
-	a = 5;
-	b = &a;
-	ft_printf("This is a test |%+9.5d|\n",255);
-	printf("This is a test |%+9.5d|\n",255);
-}
-
-
-int main ()
-{
-	int	o;
-	int	*t;
-
-	o = 5;
-	t = &o;
-	ft_printf("This is a test |%-40.18p|\n",t);
-	printf("This is a test |%-40.18p|\n",t);
-}
-
-
-int main ()
-{
-	int	a;
-	int	*b;
-
-	a = 5;
-	b = &a;
-	ft_printf("This is a test |%+9.5u|\n",-515151515);
-	printf("This is a test |%+9.5u|\n",-515151515);
-}
-*/
