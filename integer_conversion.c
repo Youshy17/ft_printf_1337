@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:42 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 18:10:13 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:37:28 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ int	integer_conversion(va_list args, int *flags, int *width_precision)
 			put_padding(width_precision[0] - len - padding, ' ', &count);
 	}
 	else
-		count += integer_conversion_bis_one(nbr, len, width_precision, flags);
+		count = check_count(count, integer_conversion_bis_one(nbr, len, width_precision, flags));
 	return (count);
 }

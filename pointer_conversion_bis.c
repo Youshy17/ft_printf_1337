@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:17:26 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 18:36:33 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:37:52 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	handle_padding(int total_len, int width, char pad_char)
 	count = 0;
 	while (total_len < width)
 	{
-		count += ft_putchar_fd(pad_char, 1);
+		count = check_count(count, ft_putchar_fd(pad_char, 1));
 		total_len++;
 	}
 	return (count);

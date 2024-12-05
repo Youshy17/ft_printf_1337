@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:40:55 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/04 15:29:25 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:28:43 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	check_format(const char *format, va_list args, int *flags,
 	count = 0;
 	if (*format == 'c' || *format == 's' || *format == 'p' || *format == 'd'
 		|| *format == 'i' || *format == 'u' || *format == 'x' || *format == 'X')
-		count = check_count(count, process_conversions(*format, args, flags, width_precision));
+		count = check_count(count, process_conversions(*format, args, flags,
+					width_precision));
 	else if (*format == '%')
 		count = check_count(count, ft_putchar_fd('%', 1));
 	else if (*format != '\0')
@@ -49,7 +50,8 @@ int	process_format(const char *format, va_list args, int *flags,
 		if (format[i] == '%')
 		{
 			i++;
-			count = check_count(count, check_format(&format[i], args, flags, width_precision));
+			count = check_count(count, check_format(&format[i], args, flags,
+						width_precision));
 		}
 		else
 			count = check_count(count, ft_putchar_fd(format[i], 1));

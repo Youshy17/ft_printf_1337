@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:38:35 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/04 15:17:32 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:25:32 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 
 	// int a = 5;
 	// int *b = &a;
-	x = printf("%00000000T");
+	x = ft_printf("%.2.2d", 2);
 	printf("\n%i", x);
 	//printf("x is %d and y is %d", x, y);
 }

@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:35 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 18:09:18 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:43:40 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	pad_width(int n, int target_width, char pad_char)
 
 	count = 0;
 	while (n++ < target_width)
-		count += ft_putchar_fd(pad_char, 1);
+		count = check_count(count, ft_putchar_fd(pad_char, 1));
 	return (count);
 }
 
@@ -29,19 +29,19 @@ int	hexadecimal_conversion_bis_two(char c, int *flags, int *width_precision,
 
 	count = 0;
 	if (flags[1] == 1 && flags[2] == 0)
-		count += pad_width(0, width_precision[0], '0');
+		count = check_count(count, pad_width(0, width_precision[0], '0'));
 	else
-		count += pad_width(0, width_precision[0], ' ');
+		count = check_count(count, pad_width(0, width_precision[0], ' '));
 	if (comb[1] > 0)
 	{
 		if (c == 'x')
-			count += ft_putstr_fd("0x", 1);
+			count = check_count(count, ft_putstr_fd("0x", 1));
 		else
-			count += ft_putstr_fd("0X", 1);
+			count = check_count(count, ft_putstr_fd("0X", 1));
 	}
-	count += pad_width(0, width_precision[1], '0');
+	count = check_count(count, pad_width(0, width_precision[1], '0'));
 	if (comb[2] > 0)
-		count += print_hex(comb[0], c);
+		count = check_count(count, print_hex(comb[0], c));
 	return (count);
 }
 
@@ -56,18 +56,18 @@ int	hexadecimal_conversion_bis_one(char c, int *flags, int *width_precision,
 		if (comb[1] > 0)
 		{
 			if (c == 'x')
-				count += ft_putstr_fd("0x", 1);
+				count = check_count(count, ft_putstr_fd("0x", 1));
 			else
-				count += ft_putstr_fd("0X", 1);
+				count = check_count(count, ft_putstr_fd("0X", 1));
 		}
-		count += pad_width(0, width_precision[1], '0');
+		count = check_count(count, pad_width(0, width_precision[1], '0'));
 		if (comb[2] > 0)
-			count += print_hex(comb[0], c);
-		count += pad_width(0, width_precision[0], ' ');
+			count = check_count(count, print_hex(comb[0], c));
+		count = check_count(count, pad_width(0, width_precision[0], ' '));
 	}
 	else
-		count += hexadecimal_conversion_bis_two(c, flags, width_precision,
-				comb);
+		count = check_count(count, hexadecimal_conversion_bis_two(c, flags,
+					width_precision, comb));
 	return (count);
 }
 
@@ -104,6 +104,6 @@ int	hexadecimal_conversion(char c, va_list args, int *flags,
 	width_precision[0] = width_precision[0] - (num_len + width_precision[1]
 			+ prefix_len);
 	combine_vars(comb, num, prefix_len, num_len);
-	count += hexadecimal_conversion_bis_one(c, flags, width_precision, comb);
-	return (count);
+	return (check_count(count, hexadecimal_conversion_bis_one(c, flags,
+				width_precision, comb)));
 }

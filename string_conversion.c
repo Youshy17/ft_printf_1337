@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:08:04 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/26 12:08:05 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:40:20 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	string_conversion_bis(char *str, int strlen, int *width_precision)
 	count = 0;
 	i = 0;
 	while (i < strlen)
-		count += ft_putchar_fd(str[i++], 1);
+		count = check_count(count, ft_putchar_fd(str[i++], 1));
 	while (i++ < width_precision[0])
-		count += ft_putchar_fd(' ', 1);
+		count = check_count(count, ft_putchar_fd(' ', 1));
 	return (count);
 }
 
@@ -54,9 +54,9 @@ int	string_conversion(va_list args, int *flags, int *width_precision)
 		return (string_conversion_bis(str, strlen, width_precision));
 	i = strlen;
 	while (i++ < width_precision[0])
-		count += ft_putchar_fd(' ', 1);
+		count = check_count(count, ft_putchar_fd(' ', 1));
 	i = 0;
 	while (i < strlen)
-		count += ft_putchar_fd(str[i++], 1);
+		count = check_count(count, ft_putchar_fd(str[i++], 1));
 	return (count);
 }

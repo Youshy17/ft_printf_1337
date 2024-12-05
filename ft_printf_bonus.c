@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:21:34 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/04 15:30:00 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:28:52 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	read_flags(const char *format, int *flags, int *width_precision)
 	ft_memset(flags, 0, sizeof(flags));
 	width_precision[0] = -1;
 	width_precision[1] = -1;
+	if (check_conversion_format(format) == 0)
+		return (0);
 	if (format[i] == '-' || format[i] == '0' || format[i] == '.'
 		|| format[i] == '#' || format[i] == ' ' || format[i] == '+'
 		|| (format[i] >= '0' && format[i] <= '9'))
@@ -28,16 +30,15 @@ int	read_flags(const char *format, int *flags, int *width_precision)
 }
 
 int	read_conversions(const char *format, va_list args, int *flags,
-	int *width_precision)
+		int *width_precision)
 {
 	int	count;
 
 	count = 0;
-	if (*format == 'c' || *format == 's' || *format == 'p'
-		|| *format == 'd' || *format == 'i' || *format == 'u'
-		|| *format == 'x' || *format == 'X')
+	if (*format == 'c' || *format == 's' || *format == 'p' || *format == 'd'
+		|| *format == 'i' || *format == 'u' || *format == 'x' || *format == 'X')
 		count = check_count(count, process_conversions(*format, args, flags,
-				width_precision));
+					width_precision));
 	else if (*format == '%')
 		count = check_count(count, ft_putchar_fd('%', 1));
 	else if (*format != '\0')
@@ -64,7 +65,8 @@ int	process_format(const char *format, va_list args, int *flags,
 		{
 			i++;
 			i += read_flags(&format[i], flags, width_precision);
-			count = check_count(count, read_conversions(&format[i], args, flags, width_precision));
+			count = check_count(count, read_conversions(&format[i], args, flags,
+						width_precision));
 		}
 		else
 			count = check_count(count, ft_putchar_fd(format[i], 1));

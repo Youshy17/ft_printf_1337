@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:08:09 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/11/27 11:11:40 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:41:03 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	pad_width_unsigned(int width, char pad_char)
 	count = 0;
 	i = 0;
 	while (i++ < width)
-		count += ft_putchar_fd(pad_char, 1);
+		count = check_count(count, ft_putchar_fd(pad_char, 1));
 	return (count);
 }
 
@@ -65,20 +65,20 @@ int	unsigned_conversion(va_list args, int *flags, int *width_precision)
 	count = 0;
 	if (flags[0] == 1)
 	{
-		count += pad_width_unsigned(width_precision[1], '0');
+		count = check_count(count, pad_width_unsigned(width_precision[1], '0'));
 		if (num_len > 0)
-			count += ft_put_unsigned_nbr_fd(num, 1);
-		count += pad_width_unsigned(width_precision[0], ' ');
+			count = check_count(count, ft_put_unsigned_nbr_fd(num, 1));
+		count = check_count(count, pad_width_unsigned(width_precision[0], ' '));
 	}
 	else
 	{
 		if (flags[1] == 1 && flags[2] == 0)
-			count += pad_width_unsigned(width_precision[0], '0');
+			count = check_count(count, pad_width_unsigned(width_precision[0], '0'));
 		else
-			count += pad_width_unsigned(width_precision[0], ' ');
-		count += pad_width_unsigned(width_precision[1], '0');
+			count = check_count(count, pad_width_unsigned(width_precision[0], ' '));
+		count = check_count(count, pad_width_unsigned(width_precision[1], '0'));
 		if (num_len > 0)
-			count += ft_put_unsigned_nbr_fd(num, 1);
+			count = check_count(count, ft_put_unsigned_nbr_fd(num, 1));
 	}
 	return (count);
 }

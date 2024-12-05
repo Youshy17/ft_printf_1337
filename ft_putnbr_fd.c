@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:30:34 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 16:14:14 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:32:05 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ int	ft_putnbr_fd(int n, int fd)
 	count = 0;
 	if (n < 0)
 	{
-		count += ft_putchar_fd('-', fd);
+		count = check_count(count, ft_putchar_fd('-', fd));
 		nbr = (unsigned int)(n * (-1));
 	}
 	else
 		nbr = (unsigned int)n;
 	if (nbr >= 10)
 	{
-		count += ft_putnbr_fd(nbr / 10, fd);
-		count += ft_putchar_fd((nbr % 10 + '0'), fd);
+		count = check_count(count, ft_putnbr_fd(nbr / 10, fd));
+		count = check_count(count, ft_putchar_fd((nbr % 10 + '0'), fd));
 	}
 	else
-		count += ft_putchar_fd((nbr + '0'), fd);
+		count = check_count(count, ft_putchar_fd((nbr + '0'), fd));
 	return (count);
 }

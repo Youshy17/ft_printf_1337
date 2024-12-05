@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:15:17 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 18:18:14 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:18:20 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ int		hexadecimal_conversion(char c, va_list args, int *flags,
 int		print_hex(unsigned int num, char c);
 int		count_digits_hex(unsigned int nbr);
 int		check_count(int current_count, int new_count);
+int		check_conversion_format(const char *format);
 #endif
