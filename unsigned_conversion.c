@@ -27,7 +27,7 @@ int	count_digits_unsigned(unsigned int nbr)
 	return (count);
 }
 
-int	pad_width_unsigned(int width, char pad_char)
+int	pad(int width, char pad_char)
 {
 	int	i;
 	int	count;
@@ -65,18 +65,18 @@ int	unsigned_conversion(va_list args, int *flags, int *width_precision)
 	count = 0;
 	if (flags[0] == 1)
 	{
-		count = check_count(count, pad_width_unsigned(width_precision[1], '0'));
+		count = check_count(count, pad(width_precision[1], '0'));
 		if (num_len > 0)
 			count = check_count(count, ft_put_unsigned_nbr_fd(num, 1));
-		count = check_count(count, pad_width_unsigned(width_precision[0], ' '));
+		count = check_count(count, pad(width_precision[0], ' '));
 	}
 	else
 	{
 		if (flags[1] == 1 && flags[2] == 0)
-			count = check_count(count, pad_width_unsigned(width_precision[0], '0'));
+			count = check_count(count, pad(width_precision[0], '0'));
 		else
-			count = check_count(count, pad_width_unsigned(width_precision[0], ' '));
-		count = check_count(count, pad_width_unsigned(width_precision[1], '0'));
+			count = check_count(count, pad(width_precision[0], ' '));
+		count = check_count(count, pad(width_precision[1], '0'));
 		if (num_len > 0)
 			count = check_count(count, ft_put_unsigned_nbr_fd(num, 1));
 	}

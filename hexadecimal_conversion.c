@@ -83,12 +83,10 @@ int	hexadecimal_conversion(char c, va_list args, int *flags,
 {
 	unsigned int	num;
 	int				num_len;
-	int				count;
 	int				prefix_len;
 	int				comb[3];
 
 	num = va_arg(args, unsigned int);
-	count = 0;
 	if (num == 0 && flags[2] && width_precision[1] == 0)
 		num_len = 0;
 	else
@@ -104,6 +102,6 @@ int	hexadecimal_conversion(char c, va_list args, int *flags,
 	width_precision[0] = width_precision[0] - (num_len + width_precision[1]
 			+ prefix_len);
 	combine_vars(comb, num, prefix_len, num_len);
-	return (check_count(count, hexadecimal_conversion_bis_one(c, flags,
-				width_precision, comb)));
+	return (hexadecimal_conversion_bis_one(c, flags,
+			width_precision, comb));
 }

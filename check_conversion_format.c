@@ -30,7 +30,7 @@ int	check_conversion_format(const char *format)
 	}
 	if (format[i] == 'c' || format[i] == 's' || format[i] == 'p'
 		|| format[i] == 'd' || format[i] == 'i' || format[i] == 'u'
-		|| format[i] == 'x' || format[i] == 'X')
+		|| format[i] == 'x' || format[i] == 'X' || format[i] == '%')
 		return (1);
 	else
 		return (0);

@@ -20,9 +20,11 @@ int	print_hex(unsigned int num, char c)
 	if (num >= 16)
 		count = check_count(count, print_hex(num / 16, c));
 	if (c == 'X')
-		count = check_count(count, ft_putchar_fd("0123456789ABCDEF"[num % 16], 1));
+		count = check_count(count,
+				ft_putchar_fd("0123456789ABCDEF"[num % 16], 1));
 	else
-		count = check_count(count, ft_putchar_fd("0123456789abcdef"[num % 16], 1));
+		count = check_count(count,
+				ft_putchar_fd("0123456789abcdef"[num % 16], 1));
 	return (count);
 }
 

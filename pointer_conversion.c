@@ -68,9 +68,11 @@ int	pointer_conversion_bis_two(int *flags, int *width_precision,
 	if (flags[0] == 0)
 	{
 		if (flags[1] == 1 && flags[2] == 0)
-			count = check_count(count, handle_padding(total_len, width_precision[0], '0'));
+			count = check_count(count,
+					handle_padding(total_len, width_precision[0], '0'));
 		else
-			count = check_count(count, handle_padding(total_len, width_precision[0], ' '));
+			count = check_count(count,
+					handle_padding(total_len, width_precision[0], ' '));
 	}
 	if (flags[5] == 1)
 		count = check_count(count, ft_putchar_fd('+', 1));
@@ -88,11 +90,16 @@ int	pointer_conversion(va_list args, int *flags, int *width_precision)
 	total_len = num_len(ptr) + sign_len(flags) + 2;
 	if (!ptr)
 		return (pointer_conversion_bis_one(flags, width_precision));
-	count = check_count(count, pointer_conversion_bis_two(flags, width_precision, total_len, ptr));
-	count = check_count(count, ft_putstr_fd("0x", 1));
-	count = check_count(count, handle_padding(num_len(ptr), width_precision[1], '0'));
-	count = check_count(count, print_address((unsigned long)ptr));
+	count = check_count(count,
+			pointer_conversion_bis_two(flags, width_precision, total_len, ptr));
+	count = check_count(count,
+			ft_putstr_fd("0x", 1));
+	count = check_count(count,
+			handle_padding(num_len(ptr), width_precision[1], '0'));
+	count = check_count(count,
+			print_address((unsigned long)ptr));
 	if (flags[0] == 1)
-		count = check_count(count, handle_padding(total_len, width_precision[0], ' '));
+		count = check_count(count,
+				handle_padding(total_len, width_precision[0], ' '));
 	return (count);
 }

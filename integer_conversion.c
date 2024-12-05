@@ -84,6 +84,7 @@ int	integer_conversion(va_list args, int *flags, int *width_precision)
 			put_padding(width_precision[0] - len - padding, ' ', &count);
 	}
 	else
-		count = check_count(count, integer_conversion_bis_one(nbr, len, width_precision, flags));
+		count = check_count(count,
+				integer_conversion_bis_one(nbr, len, width_precision, flags));
 	return (count);
 }
