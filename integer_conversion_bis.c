@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:06:47 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/05 16:41:50 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:11:49 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int	count_digits_dec(int nbr)
 void	handle_sign(int nbr, int *count, int *flags)
 {
 	if (nbr < 0)
-		*count += ft_putchar_fd('-', 1);
+		*count = check_count(*count, ft_putchar_fd('-', 1));
 	else if (flags[5])
-		*count += ft_putchar_fd('+', 1);
+		*count = check_count(*count, ft_putchar_fd('+', 1));
 	else if (flags[4])
-		*count += ft_putchar_fd(' ', 1);
+		*count = check_count(*count, ft_putchar_fd(' ', 1));
 }
 
 void	put_padding(int len, char c, int *count)
 {
 	while (len > 0)
 	{
-		*count += ft_putchar_fd(c, 1);
+		*count = check_count(*count, ft_putchar_fd(c, 1));
 		len--;
 	}
 }
@@ -58,7 +58,7 @@ void	print_number(int nbr, int precision, int *count)
 		put_padding(padding, '0', count);
 		if (nbr == 0 && precision == 0)
 			return ;
-		*count += ft_putstr_fd("2147483648", 1);
+		*count = check_count(*count, ft_putstr_fd("2147483648", 1));
 		return ;
 	}
 	if (nbr < 0)
@@ -67,5 +67,5 @@ void	print_number(int nbr, int precision, int *count)
 	put_padding(padding, '0', count);
 	if (nbr == 0 && precision == 0)
 		return ;
-	*count += ft_putnbr_fd(nbr, 1);
+	*count = check_count(*count, ft_putnbr_fd(nbr, 1));
 }

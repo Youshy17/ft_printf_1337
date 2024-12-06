@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:21:34 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/05 16:28:52 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/06 10:04:39 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ int	read_conversions(const char *format, va_list args, int *flags,
 		count = check_count(count, ft_putchar_fd('%', 1));
 		count = check_count(count, print_flags(flags, width_precision));
 		count = check_count(count, ft_putchar_fd(*format, 1));
-		//ft_memset(flags, 0, sizeof(flags));
-		//width_precision[0] = -1;
-		//width_precision[1] = -1;
 	}
 	else
 		return (-1);

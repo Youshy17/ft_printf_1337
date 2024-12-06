@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:54 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/02 16:28:21 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:37:29 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ int	process_conversions(char c, va_list args, int *flags, int *width_precision)
 		count = unsigned_conversion(args, flags, width_precision);
 	else if (c == 'x' || c == 'X')
 		count = hexadecimal_conversion(c, args, flags, width_precision);
-	else if (c == '%')
-		count = ft_putchar_fd('%', 1);
 	else
-		count = -1;
+		count = 0;
 	return (count);
 }
