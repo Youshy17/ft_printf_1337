@@ -12,6 +12,30 @@
 
 #include "ft_printf.h"
 
+int	print_flags(int *flags, int *width_precision)
+{
+	int	count;
+
+	count = 0;
+	if (flags[3] == 1)
+		count = check_count(count, ft_putchar_fd('#', 1));
+	if (flags[5] == 1)
+		count = check_count(count, ft_putchar_fd('+', 1));
+	if (flags[0] == 1)
+		count = check_count(count, ft_putchar_fd('-', 1));
+	if (width_precision[0] != -1)
+		count = check_count(count, ft_putnbr_fd(width_precision[0], 1));
+	if (flags[2] == 1)
+	{
+		count = check_count(count, ft_putchar_fd('.', 1));
+		if (width_precision[1] != -1)
+			count = check_count(count, ft_putnbr_fd(width_precision[1], 1));
+		else
+			count = check_count(count, ft_putnbr_fd(0, 1));
+	}
+	return (count);
+}
+
 int	read_flags(const char *format, int *flags, int *width_precision)
 {
 	int	i;
@@ -20,8 +44,6 @@ int	read_flags(const char *format, int *flags, int *width_precision)
 	ft_memset(flags, 0, sizeof(flags));
 	width_precision[0] = -1;
 	width_precision[1] = -1;
-	if (check_conversion_format(format) == 0)
-		return (0);
 	if (format[i] == '-' || format[i] == '0' || format[i] == '.'
 		|| format[i] == '#' || format[i] == ' ' || format[i] == '+'
 		|| (format[i] >= '0' && format[i] <= '9'))
@@ -44,7 +66,11 @@ int	read_conversions(const char *format, va_list args, int *flags,
 	else if (*format != '\0')
 	{
 		count = check_count(count, ft_putchar_fd('%', 1));
+		count = check_count(count, print_flags(flags, width_precision));
 		count = check_count(count, ft_putchar_fd(*format, 1));
+		//ft_memset(flags, 0, sizeof(flags));
+		//width_precision[0] = -1;
+		//width_precision[1] = -1;
 	}
 	else
 		return (-1);
@@ -70,6 +96,8 @@ int	process_format(const char *format, va_list args, int *flags,
 		}
 		else
 			count = check_count(count, ft_putchar_fd(format[i], 1));
+		if (format[i] == '\0')
+			return (count);
 		i++;
 	}
 	return (count);

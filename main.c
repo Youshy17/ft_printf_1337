@@ -17,21 +17,88 @@ int	main(void)
 	int	x;
 	int	y;
 
-	// int a = 5;
-	// int *b = &a;
-	x = printf("%0000-----+++###     0000%");
-	printf("\n%i", x);
-	//printf("x is %d and y is %d", x, y);
+	x = ft_printf("%c", 'c');
+	printf("\n");
+	y = printf("%c", 'c');
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("%c", 0);
+	printf("\n");
+	y = printf("%c", 0);
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("%5c", 'c');
+	printf("\n");
+	y = printf("%5c", 'c');
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("%-5c", 'c');
+	printf("\n");
+	y = printf("%-5c", 'c');
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("%05c", 'c');
+	printf("\n");
+	y = printf("%05c", 'c');
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("%05.5c", 'c');
+	printf("\n");
+	y = printf("%05.5c", 'c');
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("%+5c", 'c');
+	printf("\n");
+	y = printf("%+5c", 'c');
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("");
+	printf("\n");
+	y = printf("");
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("");
+	printf("\n");
+	y = printf("");
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("");
+	printf("\n");
+	y = printf("");
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("");
+	printf("\n");
+	y = printf("");
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("");
+	printf("\n");
+	y = printf("");
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("");
+	printf("\n");
+	y = printf("");
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
+
+	x = ft_printf("");
+	printf("\n");
+	y = printf("");
+	printf("\nmine returned %d and original returned %d", x, y);
+	printf("\n -------------- new test ------------------\n");
 }
 
-/*
-int main ()
-{
-	ft_printf("%.6i",-3);
-	printf("%.6i",-3);
-	ft_printf("|%-15.15d|\n",255);
-	printf("|%-15.15d|\n",255);
-}
-
-int	y = printf("|%.-5d|\n",10);
-*/
