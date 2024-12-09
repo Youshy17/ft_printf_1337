@@ -6,7 +6,7 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:07:50 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/05 16:39:36 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:26:39 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	num_len(void *ptr)
 	if (!ptr)
 		num_len = 5;
 	else
-		num_len = count_digits_address((unsigned long)ptr);
+		num_len = count_digits_address((uintptr_t)ptr);
 	return (num_len);
 }
 
@@ -97,7 +97,7 @@ int	pointer_conversion(va_list args, int *flags, int *width_precision)
 	count = check_count(count,
 			handle_padding(num_len(ptr), width_precision[1], '0'));
 	count = check_count(count,
-			print_address((unsigned long)ptr));
+			print_address((uintptr_t)ptr));
 	if (flags[0] == 1)
 		count = check_count(count,
 				handle_padding(total_len, width_precision[0], ' '));

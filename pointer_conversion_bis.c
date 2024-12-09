@@ -6,13 +6,13 @@
 /*   By: yel-hamr <yel-hamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:17:26 by yel-hamr          #+#    #+#             */
-/*   Updated: 2024/12/05 16:37:52 by yel-hamr         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:27:56 by yel-hamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	count_digits_address(unsigned long nbr)
+int	count_digits_address(uintptr_t nbr)
 {
 	int	count;
 
@@ -27,7 +27,7 @@ int	count_digits_address(unsigned long nbr)
 	return (count);
 }
 
-int	print_address(unsigned long num)
+int	print_address(uintptr_t num)
 {
 	if (num >= 16)
 		print_address(num / 16);
